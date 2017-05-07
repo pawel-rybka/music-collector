@@ -156,16 +156,6 @@ def check_file(file_name):
         exit()
 
 
-def action_service():
-    """Checks if 'action' given by a user is valid."""
-    while True:
-        action = input("")
-        if re.match("[0-9]$|1[0-2]$", action):
-            break
-        print("Enter a valid number!")
-    return action
-
-
 def check_year_format(year):
     "Checks if given year is in proper format."
     if re.match("19[0-9]{2}$|20[0-9]{2}$", year):
@@ -237,6 +227,7 @@ def main():
     """Checks which action user choose and runs proper function."""
     FILE_NAME = "music.csv"
     music = []
+    action = None
 
     check_file(FILE_NAME)
     read_file_to_music_list(FILE_NAME, music)
@@ -244,17 +235,16 @@ def main():
     os.system("clear")
     print("\nWelcome in the CoolMusic!\n")
 
-    while True:
+    while action != "0":
         show_menu()
 
-        action = action_service()
-
+        action = input()
         os.system("clear")
 
         if action == "0":
             write_music_list_to_file(FILE_NAME, music)
             os.system("clear")
-            exit()
+            break
 
         elif action == "1":
             add_new_album(music)
@@ -291,9 +281,14 @@ def main():
 
         elif action == "12":
             sort_list(music)
+  
+        else:
+            print("Enter a valid number!")
 
         input("\nPress return to enter menu.\n")
         os.system("clear")
+        
+    os.system("clear")
 
 
 if __name__ == "__main__":
