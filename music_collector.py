@@ -187,26 +187,26 @@ def read_file_to_music_list(file_name, music):
     music_file = open(file_name, "r")
 
     for line in music_file.readlines():
-        line = line[:-1].split("|")
+        split_line = line[:-1].split("|")
 
-        if len(line) == 5:
+        if len(split_line) == 5:
             for index in range(5):
-                line[index] = line[index].strip()
-            if not check_year_format(line[2]):
-                line[2] = -1
-            if not check_length_format(line[4]):
-                line[4] = ""
-            name = line[0], line[1]
-            information = int(line[2]), line[3], line[4]
+                split_line[index] = split_line[index].strip()
+            if not check_year_format(split_line[2]):
+                split_line[2] = -1
+            if not check_length_format(split_line[4]):
+                split_line[4] = ""
+            name = split_line[0], split_line[1]
+            information = int(split_line[2]), split_line[3], split_line[4]
             music.append((name, information))
     music_file.close()
 
 
 def write_music_list_to_file(file_name, music):
     """Write data from the list 'music' to the 'file_name' file."""
-    year = ""
     music_file = open(file_name, "w")
     for name, information in music:
+        year = ""
         if information[0] != -1:
             year = information[0]
         music_file.write("{} | {} | {} | {} | {}\n".format(name[0],
@@ -256,44 +256,45 @@ def main():
             os.system("clear")
             exit()
 
-        if action == "1":
+        elif action == "1":
             add_new_album(music)
 
-        if action == "2":
+        elif action == "2":
             find_albums_by_artist(music)
 
-        if action == "3":
+        elif action == "3":
             find_albums_by_year(music)
 
-        if action == "4":
+        elif action == "4":
             find_artist_by_album(music)
 
-        if action == "5":
+        elif action == "5":
             find_albums_by_letters(music)
 
-        if action == "6":
+        elif action == "6":
             find_albums_by_genre(music)
 
-        if action == "7":
+        elif action == "7":
             calculate_age_of_albums(music)
 
-        if action == "8":
+        elif action == "8":
             choose_random_album_by_genre(music)
 
-        if action == "9":
+        elif action == "9":
             show_amount_of_albums_by_artist(music)
 
-        if action == "10":
+        elif action == "10":
             find_longest_album(music)
 
-        if action == "11":
+        elif action == "11":
             list_all_albums(music)
 
-        if action == "12":
+        elif action == "12":
             sort_list(music)
 
-        action = input("\nPress return to enter menu.\n")
+        input("\nPress return to enter menu.\n")
         os.system("clear")
 
 
-main()
+if __name__ == "__main__":
+    main()
